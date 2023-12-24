@@ -103,41 +103,47 @@ void colocarBombas(struct Celda tablero[9][9], int columnaSeleccionada, int fila
         columna = celdasConBomba[i][1];
 
         tablero[fila][columna].bomba = 1;
+    }
 
+    for(int i = 0; i < 8; i++) {
         int filaAnterior = fila - 1;
         int filaPosterior = fila + 1;
         int columnaPosterior = columna + 1;
         int columnaAnterior = columna - 1;
 
         if (!(filaAnterior < 0)) {
-            if (columnaAnterior >= 0) {
+            if (columnaAnterior >= 0 && tablero[filaAnterior][columnaAnterior].bomba != 1) {
                 tablero[filaAnterior][columnaAnterior].vecinos += 1;
             }
 
-            tablero[filaAnterior][columna].vecinos += 1;
+            if(tablero[filaAnterior][columnaAnterior].bomba != 1) {
+                tablero[filaAnterior][columna].vecinos += 1;
+            }
 
-            if (columnaPosterior < 9 && columnaPosterior >= 0) {
+            if (columnaPosterior < 9 && columnaPosterior >= 0 && tablero[filaAnterior][columnaPosterior].bomba != 1) {
                 tablero[filaAnterior][columnaPosterior].vecinos += 1;
             }
         }
 
         if (filaPosterior < 9 && filaPosterior >= 0) {
-            if (columnaAnterior >= 0) {
+            if (columnaAnterior >= 0 && tablero[filaPosterior][columnaAnterior].bomba != 1) {
                 tablero[filaPosterior][columnaAnterior].vecinos += 1;
             }
 
-            tablero[filaPosterior][columna].vecinos += 1;
+            if(tablero[filaPosterior][columna].bomba != 1) {
+                tablero[filaPosterior][columna].vecinos += 1;
+            }
 
-            if (columnaPosterior < 9 && columnaPosterior >= 0) {
+            if (columnaPosterior < 9 && columnaPosterior >= 0 && tablero[filaPosterior][columnaPosterior].bomba != 1) {
                 tablero[filaPosterior][columnaPosterior].vecinos += 1;
             }
         }
 
-        if (columnaAnterior >= 0) {
+        if (columnaAnterior >= 0 && tablero[fila][columnaAnterior].bomba != 1) {
             tablero[fila][columnaAnterior].vecinos += 1;
         }
 
-        if (columnaPosterior < 9 && columnaPosterior >= 0) {
+        if (columnaPosterior < 9 && columnaPosterior >= 0 && tablero[fila][columnaPosterior].bomba != 1) {
             tablero[fila][columnaPosterior].vecinos += 1;
         }
     }
