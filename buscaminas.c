@@ -8,7 +8,6 @@ struct Celda {
     int vecinos;
 };
 
-
 void inicializarTablero(struct Celda tablero[9][9]);
 void colocarBombas(struct Celda tablero[9][9], int columnaSeleccionada, int filaSeleccionada);
 void mostrarTablero(struct Celda tablero[9][9]);
@@ -145,6 +144,31 @@ void colocarBombas(struct Celda tablero[9][9], int columnaSeleccionada, int fila
 
         if (columnaPosterior < 9 && columnaPosterior >= 0 && tablero[fila][columnaPosterior].bomba != 1) {
             tablero[fila][columnaPosterior].vecinos += 1;
+        }
+    }
+}
+
+void descubrirCelda(int fila, int columna) {
+    // Verificar si la casilla ya está descubierta
+    if (tablero[fila][columna].descubierta) {
+        printf("Esta casilla ya ha sido descubierta.\n");
+        return;
+    }
+
+    // Descubrir la casilla
+    
+    tablero[fila][columna].descubierta = 1;
+
+    // Si la casilla no tiene minas adyacentes, descubre las casillas adyacentes
+    if (tablero[fila][columna].minas_adyacentes == 0) {
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                int nueva_fila = fila + x;
+                int nueva_columna = columna + y;
+                if (nueva_fila >= 0 && nueva_fila < 10 && nueva_columna >= 0 && nueva_columna < 10) {
+                    descubrir_casilla(nueva_fila, nueva_columna);
+                }
+            }
         }
     }
 }
